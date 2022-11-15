@@ -13,6 +13,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import rs.ftn.uns.btb.model.User;
 
+import rs.ftn.uns.btb.model.dto.UserLoginDTO;
+import rs.ftn.uns.btb.service.UserService;
+import io.swagger.v3.oas.annotations.Parameter;
+
+
 import rs.ftn.uns.btb.model.dto.UserDTO;
 
 import rs.ftn.uns.btb.model.dto.UserUpdateDTO;
@@ -24,6 +29,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+
+import java.util.Collection;
+
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @CrossOrigin("http://localhost:3000")
 @RequestMapping(value = "/api/user")
@@ -52,6 +61,42 @@ public class UserController {
             e.printStackTrace();
             return new ResponseEntity<User>(savedUser, HttpStatus.CONFLICT);
         }
+    }
+    //Spasko
+    @Operation(summary = "Get user by id", description = "Get user by id", method="GET")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "found user by id",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = User.class))),
+            @ApiResponse(responseCode = "404", description = "user not found", content = @Content)
+    })
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> getUser(@Parameter(name="id", description = "ID of a user to return", required = true) @PathVariable("id") Long id) {
+        User user = _userService.findOne(id);
+
+        if (user == null) {
+            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<User>(user, HttpStatus.OK);
+    }
+
+    @Operation(summary = "Login", description = "Login", method="GET")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully logged in!",
+                    content =
+                            { @Content(mediaType = "application/json", schema = @Schema(implementation = User.class)) }
+            ),
+            @ApiResponse(responseCode = "404", description = "Invalid username or password", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content) })
+    @PostMapping(value="/login",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> checkLogin(@RequestBody UserLoginDTO userLoginDTO) {
+
+        User user_info = _userService.checkLogin(userLoginDTO.getEmail(), userLoginDTO.getPassword());
+        System.out.println("User check Login returned: " + user_info );
+        if (user_info == null) {
+            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<User>(user_info, HttpStatus.OK);
     }
 
     @Operation(summary = "Get all users", description = "Get all users", method="GET")
@@ -118,7 +163,6 @@ public class UserController {
         return new ResponseEntity<User>(updatedUser, HttpStatus.OK);
 
         }
-
 
 
 

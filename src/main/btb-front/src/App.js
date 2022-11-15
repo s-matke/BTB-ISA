@@ -1,16 +1,32 @@
+import React, { Component } from "react";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link,
+  Outlet
+} from "react-router-dom";
+import Home from "./Components/Home";
+import Login from "./Components/Login";
+import Signup from "./Components/Signup";
 import './App.css';
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import CreateStaff from './Pages/CreateStaff';
-import ShowUsers from './Pages/ShowUsers';
-import CreateCenter from './Pages/createCenter';
+
+
 
 
 
 function App() {
  return (
   <div className="App">
- <ShowUsers/>
-  </div>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home/>} />
+            <Route path="/signup" element={<Signup/>} />
+            <Route path="/login" element={<Login/>} />
+          </Routes>
+        </BrowserRouter>
+      </div>
  );
 }
 

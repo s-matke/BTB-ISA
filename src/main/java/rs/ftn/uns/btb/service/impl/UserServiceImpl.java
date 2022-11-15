@@ -6,6 +6,7 @@ import rs.ftn.uns.btb.model.User;
 import rs.ftn.uns.btb.repository.UserRepository;
 import rs.ftn.uns.btb.service.UserService;
 
+
 import java.util.Collection;
 import java.util.List;
 
@@ -24,8 +25,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+
     public List<User> findAll() {
         List<User> users = _userRepo.findAll();
+
+    public User findOne(Long id) {
+        User user = this._userRepo.findOneById(id);
+        return  user;
+    }
+    @Override
+    public User checkLogin(String email,String password){
+        //User user = this._userRepo.checkLogin(email,password);
+        User user = this._userRepo.findOneByEmailAndPassword(email,password);
+        return user;
+    }
+
+    @Override
+    public Collection<User> findAll() {
+        Collection<User> users = _userRepo.findAll();
+
         return users;
     }
     @Override
@@ -58,11 +76,9 @@ public class UserServiceImpl implements UserService {
         return updatedUser;
     }
 
-    @Override
-    public User findOne(Long jmbg) {
-        return this._userRepo.findById(jmbg).orElseGet(null);
-    }
-
-
+//    @Override
+//    public User findOne(Long jmbg) {
+//        return this._userRepo.findById(jmbg).orElseGet(null);
+//    }
 
 }
