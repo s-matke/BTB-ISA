@@ -8,9 +8,11 @@ import rs.ftn.uns.btb.core.role.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     public User findOneById(Long id);
+    Optional<User> findByActivationCode(String activationCode);
     public List<User> findAll();
     @Query(value = "SELECT u "+
             "FROM users u "+

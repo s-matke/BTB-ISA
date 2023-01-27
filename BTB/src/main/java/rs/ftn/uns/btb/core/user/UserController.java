@@ -54,6 +54,16 @@ public class UserController {
         }
     }
     //Spasko
+    @GetMapping("/activate-user/{activation}")
+    public ResponseEntity<User> activateUser(@PathVariable("activation") String activation)throws Exception {
+        User retVal;
+        try {
+            retVal = _userService.activate(activation);
+            return new ResponseEntity<>(retVal, HttpStatus.OK);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
     @Operation(summary = "Get user by id", description = "Get user by id", method="GET")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "found user by id",

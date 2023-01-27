@@ -9,6 +9,7 @@ import java.util.List;
 public interface UserService {
 
     User create(User user) throws Exception;
+    User activate(String activation)throws Exception;
     List<User> findAll();
     User findById(Long id);
     User findOne(Long id);

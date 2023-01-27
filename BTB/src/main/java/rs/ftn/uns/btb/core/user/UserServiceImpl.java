@@ -4,18 +4,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import rs.ftn.uns.btb.core.EmailSenderService;
 import rs.ftn.uns.btb.core.role.Role;
 import rs.ftn.uns.btb.core.role.interfaces.IRole;
 import rs.ftn.uns.btb.core.security.dtos.UserRequest;
 import rs.ftn.uns.btb.core.user.interfaces.UserService;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     public final UserRepository _userRepo;
+
+    @Autowired
+    public EmailSenderService _emailSender;
 
     @Autowired
     private IRole _roleService;
@@ -34,6 +39,7 @@ public class UserServiceImpl implements UserService {
         System.out.println("actCode");
         System.out.println(actCode);
         user.setActivationCode(actCode);
+        _emailSender.sendSimpleEmail(user.getEmail(),"Activate user", "http://localhost:8084/api/user/activate-user/" +actCode);
         User newUser = this._userRepo.save(user);
         return newUser;
     }
@@ -41,6 +47,17 @@ public class UserServiceImpl implements UserService {
     public User findOne(Long id) {
         User user = this._userRepo.findOneById(id);
         return  user;
+    }
+    @Override
+    public User activate(String activation) throws Exception {
+        Optional<User> u = _userRepo.findByActivationCode(activation);
+        if(u.isPresent()){
+            User us = u.get();
+            us.setActivated(true);
+            _userRepo.save(us);
+            return us;
+        }
+        return null;
     }
     @Override
     public User checkLogin(String email,String password){
