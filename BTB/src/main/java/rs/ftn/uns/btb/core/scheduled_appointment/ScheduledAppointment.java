@@ -32,7 +32,7 @@ public class ScheduledAppointment implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "appointment_id", referencedColumnName = "id")
     private Appointment appointment;
 

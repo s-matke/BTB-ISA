@@ -27,6 +27,7 @@ import rs.ftn.uns.btb.core.survey.answer.SurveyAnswersRepository;
 import rs.ftn.uns.btb.core.user.User;
 import rs.ftn.uns.btb.core.user.UserRepository;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -174,7 +175,20 @@ public class AppointmentController {
 
         return new ResponseEntity<Appointment>(updatedAppointment, HttpStatus.OK);
     }
-
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping("/cancel")
+    public ResponseEntity<Object> cancelAppointment(@Valid @RequestBody BookAppointmentDTO dto){
+        try {
+            Appointment appointment = _appointmentService.CancelAppointment(dto);
+            return new ResponseEntity<>(appointment, HttpStatus.OK);
+        } catch (Exception ex){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+    @GetMapping(value = "/getBooked/{user_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Appointment> getBooked(@PathVariable Long user_id){
+        return new ResponseEntity<Appointment>(_appointmentService.getBooked(user_id), HttpStatus.OK);
+    }
     @GetMapping(value = "/getAllAvailable", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Appointment>> getAllAvailable(){
         return new ResponseEntity<List<Appointment>>(_appointmentService.getAllAvailable(), HttpStatus.OK);
@@ -210,7 +224,7 @@ public class AppointmentController {
                 break;
             }
         }
-        if (!found) {
+        if (! found) {
             return new ResponseEntity<Appointment>(HttpStatus.NOT_FOUND);
         } else {
             // continue
@@ -230,6 +244,13 @@ public class AppointmentController {
         }
         if (updatedAppointment == null) {
             return new ResponseEntity<Appointment>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        //send verification
+        try {
+            _appointmentService.SendConfirmationCode(updatedAppointment);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
 
         return new ResponseEntity<Appointment>(updatedAppointment, HttpStatus.OK);

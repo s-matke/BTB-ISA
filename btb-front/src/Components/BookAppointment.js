@@ -9,6 +9,9 @@ function BookAppointment(){
   const [selectedItem,setSelectedItem] = useState([]);
   const [answers,setAnswers] = useState([]);
   const [userLoaded, setUserLoaded] = useState(false);
+  const [isAppointmentBooked, setIsappointmentBooked] = useState(true);
+  const [appointmentBooked, setAppointmentBooked] = useState([]);
+
   const fetchData = async () => {
         const options = {
         method: 'GET',
@@ -29,7 +32,43 @@ function BookAppointment(){
         });
     }
     useEffect(() => {
-      fetchData();
+      const checkBook = async () => {
+        const options = {
+          method: 'GET',
+          url: 'http://localhost:8084/api/appointment/getBooked/'+JSON.parse(localStorage.getItem('user')).id.toString(),
+          headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token')
+          }
+        };
+        console.log("UserID: " + JSON.parse(localStorage.getItem('user')).id.toString());
+        axios.request(options).then(function (response) {
+          // if (response.status === 500) {
+          //   setIsAppointmentBooked(false);
+          //   setAppointmentBooked([]);
+          // }
+          //setUserLoaded(false);
+          //setAppointmentBooked(response.data);
+          console.log("Odgovor:", response.data);
+          setAppointmentBooked(response.data);
+          console.log("Appointment booked and response data:", appointmentBooked, response.data);
+          setIsappointmentBooked(false)
+          
+          return response.data;
+        }).catch(function (error) {
+          //Ako nema zakazanih termina kod ovog korisnika..
+          setIsappointmentBooked(true)
+          return [];
+        });
+  }
+      checkBook();
+
+      console.log("appointmenet Booked: ", appointmentBooked);
+      //console.log("Tu sam!", appointmentBooked, isAppointmentBooked);
+      if (appointmentBooked.length === 0) {
+        fetchData();
+      }
+     
+      
       }, []);
 
       const handleSave = () => {
@@ -52,15 +91,38 @@ function BookAppointment(){
             navigate("/centers")
           }).catch(function (error) {
             console.error(error);
-            //navigate("/survey")
+            navigate("/bookAppointments")
           });
         } else {
           console.log("No item selected");
         }
       };
+
+      const handleCancle = () => {
+        console.log(appointmentBooked.id);
+        const options = {
+          method: 'POST',
+          url: 'http://localhost:8084/api/appointment/cancel',
+          headers: {
+            Authorization: 'Bearer ',
+            'Content-Type': 'application/json'
+          },
+          data: {appointmentId: appointmentBooked.id, customerId: JSON.parse(localStorage.getItem('user')).id.toString()}
+        };
+        
+        axios.request(options).then(function (response) {
+          console.log(response.data);
+          console.log("Otkazao!");
+          navigate("/centers")
+        }).catch(function (error) {
+          console.error(error);
+          console.log("Eror prilikom otkazivanja")
+        });
+      };
+
       return (
     <div style={{'marginLeft':'280px'}}>
-    {userLoaded ? (
+    {isAppointmentBooked ? (
        <div className="Neso">
          <h1>Lista slobodnih termina</h1>
          {answers.map((element, index)=>
@@ -85,8 +147,11 @@ function BookAppointment(){
          <button onClick={handleSave}>Rezervisi</button>
        </div>
     ) : (
-      <p>No question found, please try again</p>
-      //Mozda na stranicu 404?
+      <div>
+        <p>Vec imate zakazan termin</p>
+        {appointmentBooked && <div>{appointmentBooked.data}</div>}
+        <button onClick={handleCancle}>Otkazi</button>
+      </div>
     )}  
     </div>
       )

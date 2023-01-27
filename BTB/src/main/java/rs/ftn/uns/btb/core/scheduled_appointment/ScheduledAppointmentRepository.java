@@ -10,5 +10,6 @@ public interface ScheduledAppointmentRepository extends JpaRepository<ScheduledA
     Set<ScheduledAppointment> findAllByUsersId(Long id);
 
     ScheduledAppointment findByAppointmentId(Long id);
+    ScheduledAppointment findByUsersId(Long id);
     
 }

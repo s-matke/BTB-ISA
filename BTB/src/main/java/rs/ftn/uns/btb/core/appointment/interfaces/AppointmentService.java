@@ -4,6 +4,8 @@ import rs.ftn.uns.btb.core.appointment.Appointment;
 import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import rs.ftn.uns.btb.core.appointment.dtos.BookAppointmentDTO;
+
 public interface AppointmentService {
 
     Appointment create(Appointment appointment) throws  Exception;
@@ -12,10 +14,13 @@ public interface AppointmentService {
 
     List<Appointment> findAll();
     List<Appointment> getAllAvailable();
+    Appointment getBooked( Long user_id);
     void deleteSelection(Long[] idsOfAppointmentsToRemove);
 
     Appointment findOne(Long id);
 
     Appointment update(Appointment appointment) throws Exception;
     //Iterable<Appointment> GetAll() throws Exception;
+    void SendConfirmationCode(Appointment app) throws Exception;
+    Appointment CancelAppointment(BookAppointmentDTO dto) throws Exception;
 }
