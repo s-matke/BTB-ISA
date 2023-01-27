@@ -36,6 +36,8 @@ import rs.ftn.uns.btb.core.user.User;
 import rs.ftn.uns.btb.core.user.interfaces.UserService;
 import rs.ftn.uns.btb.core.util.TokenUtils;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping(value = "/auth", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AuthenticationController {

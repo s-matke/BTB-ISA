@@ -10,6 +10,7 @@ import rs.ftn.uns.btb.core.security.dtos.UserRequest;
 import rs.ftn.uns.btb.core.user.interfaces.UserService;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -28,6 +29,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User create(User user) throws Exception {
         user.setRole(Roles.USER);
+        user.setActivated(false);
+        String actCode = UUID.randomUUID().toString();
+        System.out.println("actCode");
+        System.out.println(actCode);
+        user.setActivationCode(actCode);
         User newUser = this._userRepo.save(user);
         return newUser;
     }
@@ -93,6 +99,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User add(UserRequest userRequest) {
         User u = new User();
+        u.setActivated(false);
+        String actCode = UUID.randomUUID().toString();
+        System.out.println("actCode");
+        System.out.println(actCode);
+        u.setActivationCode(actCode);
 
         userRequest.setPassword(passwordEncoder.encode(userRequest.getPassword()));
 

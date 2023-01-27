@@ -19,23 +19,23 @@ VALUES (nextval('global_id_sequence'), '32112341123', 'Worker', 'Workeric', 'wor
 
 -- REGISTERED USERS
 -- "$2a$10$Io18FqjIJDYLfM.MLWvo5uCfdb0QgQWV/B.OoF0II9xGQV8AzV/m6" = '123',
-INSERT INTO public.users (id, jmbg, first_name, last_name, email, password, status, address, city, country, gender, job, profession, penalty, phone, role)
-VALUES (nextval('global_id_sequence'), '34141412321', 'User', 'Useric', 'user@gmail.com', '$2a$10$Io18FqjIJDYLfM.MLWvo5uCfdb0QgQWV/B.OoF0II9xGQV8AzV/m6', true, 'Pregrevica 146d', 'Belgrade', 'Serbia', 'male', 'Designer', 'Driving instructor', 0, '+381691055491', 2);
+INSERT INTO public.users (id, jmbg, first_name, last_name, email, password, status, address, city, country, gender, job, profession, penalty, phone, role, activated, activation_code)
+VALUES (nextval('global_id_sequence'), '34141412321', 'User', 'Useric', 'user@gmail.com', '$2a$10$Io18FqjIJDYLfM.MLWvo5uCfdb0QgQWV/B.OoF0II9xGQV8AzV/m6', true, 'Pregrevica 146d', 'Belgrade', 'Serbia', 'male', 'Designer', 'Driving instructor', 0, '+381691055491', 2, true, 'activation');
 
-INSERT INTO public.users (id, jmbg, first_name, last_name, email, password, status, address, city, country, gender, job, profession, penalty, phone, role)
-VALUES (nextval('global_id_sequence'), '41231231321', 'Nikola', 'Nikolic', 'nikola@gmail.com', '$2a$10$Io18FqjIJDYLfM.MLWvo5uCfdb0QgQWV/B.OoF0II9xGQV8AzV/m6', true, 'Mazuraniceva 10', 'Petrovaradin', 'Serbia', 'male', 'Mehanicar', 'Inzenjer', 1, '+381601049921', 2);
+INSERT INTO public.users (id, jmbg, first_name, last_name, email, password, status, address, city, country, gender, job, profession, penalty, phone, role, activated, activation_code)
+VALUES (nextval('global_id_sequence'), '41231231321', 'Nikola', 'Nikolic', 'nikola@gmail.com', '$2a$10$Io18FqjIJDYLfM.MLWvo5uCfdb0QgQWV/B.OoF0II9xGQV8AzV/m6', true, 'Mazuraniceva 10', 'Petrovaradin', 'Serbia', 'male', 'Mehanicar', 'Inzenjer', 1, '+381601049921', 2, true, 'activation');
 
-INSERT INTO public.users (id, jmbg, first_name, last_name, email, password, status, address, city, country, gender, job, profession, penalty, phone, role)
-VALUES (nextval('global_id_sequence'), '51232132131', 'Milica', 'Milicic', 'milica@gmail.com', '$2a$10$Io18FqjIJDYLfM.MLWvo5uCfdb0QgQWV/B.OoF0II9xGQV8AzV/m6', true, 'Preradoviceva 44', 'Petrovaradin', 'Serbia', 'female', 'Actor', 'Actor', 0, '+381630492122', 2);
+INSERT INTO public.users (id, jmbg, first_name, last_name, email, password, status, address, city, country, gender, job, profession, penalty, phone, role, activated, activation_code)
+VALUES (nextval('global_id_sequence'), '51232132131', 'Milica', 'Milicic', 'milica@gmail.com', '$2a$10$Io18FqjIJDYLfM.MLWvo5uCfdb0QgQWV/B.OoF0II9xGQV8AzV/m6', true, 'Preradoviceva 44', 'Petrovaradin', 'Serbia', 'female', 'Actor', 'Actor', 0, '+381630492122', 2, true, 'activation');
 
-INSERT INTO public.users (id, jmbg, first_name, last_name, email, password, status, address, city, country, gender, job, profession, penalty, phone, role)
-VALUES (nextval('global_id_sequence'), '54151321231', 'Marko', 'Markovic', 'marko@gmail.com', '$2a$10$Io18FqjIJDYLfM.MLWvo5uCfdb0QgQWV/B.OoF0II9xGQV8AzV/m6', true, 'Marka Oreskoviceva 8/a', 'Petrovaradin', 'Serbia', 'male', 'Driving instructor', 'Actor', 2, '+381653492131', 2);
+INSERT INTO public.users (id, jmbg, first_name, last_name, email, password, status, address, city, country, gender, job, profession, penalty, phone, role, activated, activation_code)
+VALUES (nextval('global_id_sequence'), '54151321231', 'Marko', 'Markovic', 'marko@gmail.com', '$2a$10$Io18FqjIJDYLfM.MLWvo5uCfdb0QgQWV/B.OoF0II9xGQV8AzV/m6', true, 'Marka Oreskoviceva 8/a', 'Petrovaradin', 'Serbia', 'male', 'Driving instructor', 'Actor', 2, '+381653492131', 2, true, 'activation');
 
-INSERT INTO public.users (id, jmbg, first_name, last_name, email, password, status, address, city, country, gender, job, profession, penalty, phone, role)
-VALUES (nextval('global_id_sequence'), '11233211414', 'Jelena', 'Jelenic', 'jelena@gmail.com', '$2a$10$Io18FqjIJDYLfM.MLWvo5uCfdb0QgQWV/B.OoF0II9xGQV8AzV/m6', true, 'Dimitrija Tucovica 3', 'Novi Sad', 'Serbia', 'female', 'Designer', 'Footballer', 1, '+3816530421921', 2);
+INSERT INTO public.users (id, jmbg, first_name, last_name, email, password, status, address, city, country, gender, job, profession, penalty, phone, role, activated, activation_code)
+VALUES (nextval('global_id_sequence'), '11233211414', 'Jelena', 'Jelenic', 'jelena@gmail.com', '$2a$10$Io18FqjIJDYLfM.MLWvo5uCfdb0QgQWV/B.OoF0II9xGQV8AzV/m6', true, 'Dimitrija Tucovica 3', 'Novi Sad', 'Serbia', 'female', 'Designer', 'Footballer', 1, '+3816530421921', 2, true, 'activation');
 
-INSERT INTO public.users (id, jmbg, first_name, last_name, email, password, status, address, city, country, gender, job, profession, penalty, phone, role)
-VALUES (nextval('global_id_sequence'), '19932131414', 'Petar', 'Petrovic', 'petar@gmail.com', '$2a$10$Io18FqjIJDYLfM.MLWvo5uCfdb0QgQWV/B.OoF0II9xGQV8AzV/m6', true, 'Petra Drapsina 41', 'Novi Sad', 'Serbia', 'male', 'Salesman', 'Salesman', 2, '+381624492331', 2);
+INSERT INTO public.users (id, jmbg, first_name, last_name, email, password, status, address, city, country, gender, job, profession, penalty, phone, role, activated, activation_code)
+VALUES (nextval('global_id_sequence'), '19932131414', 'Petar', 'Petrovic', 'petar@gmail.com', '$2a$10$Io18FqjIJDYLfM.MLWvo5uCfdb0QgQWV/B.OoF0II9xGQV8AzV/m6', true, 'Petra Drapsina 41', 'Novi Sad', 'Serbia', 'male', 'Salesman', 'Salesman', 2, '+381624492331', 2, true, 'activation');
 
 
 -- ROLES

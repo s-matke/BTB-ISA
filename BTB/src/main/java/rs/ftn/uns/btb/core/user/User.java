@@ -49,6 +49,10 @@ public class User extends Person {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private Set<Report> historyAppointments = new HashSet<>();
+    @JsonIgnore
+    private String activationCode;
+    @JsonIgnore
+    private boolean activated;
     
     public User() {}
 
