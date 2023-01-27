@@ -3,6 +3,7 @@ package rs.ftn.uns.btb.core.appointment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import rs.ftn.uns.btb.core.EmailSenderService;
 import rs.ftn.uns.btb.core.appointment.dtos.BookAppointmentDTO;
 import rs.ftn.uns.btb.core.appointment.interfaces.AppointmentService;
 import rs.ftn.uns.btb.core.appointment.interfaces.AppointmentState;
@@ -11,9 +12,7 @@ import rs.ftn.uns.btb.core.scheduled_appointment.ScheduledAppointmentRepository;
 import rs.ftn.uns.btb.core.user.User;
 import rs.ftn.uns.btb.core.user.UserRepository;
 
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class AppointmentServiceImpl implements AppointmentService {
@@ -21,6 +20,8 @@ public class AppointmentServiceImpl implements AppointmentService {
     public final AppointmentRepository _appointmentRepo;
     public final ScheduledAppointmentRepository scheduledAppointmentRepository;
     public final UserRepository userRepository;
+    @Autowired
+    public EmailSenderService _emailSender;
 
     @Autowired
     public AppointmentServiceImpl(AppointmentRepository _appointmentRepo, ScheduledAppointmentRepository scheduledAppointmentRepository,UserRepository userRepository) {
@@ -95,13 +96,23 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public void SendConfirmationCode(Appointment app) throws Exception {
         ScheduledAppointment sa = scheduledAppointmentRepository.findByAppointmentId(app.getId());
-        User customer = userRepository.findById(sa.getId()).get();
-/*
-        String activationLink = "http://localhost:8086/api/appointment/confirm/"+ app.getConfirmationCode();
-        Map<String, DataSource> files = new HashMap<>();
-        PrepareQrCode(activationLink, files);
-        emailSenderService.sendMailWithInlineResources(customer.getEmail(), "Confirm booked appointment", "Appointment activation link is:" + activationLink, files);
-*/
+        User user = userRepository.findById(sa.getUsers().getId()).get();
+        String actCode = UUID.randomUUID().toString();
+        app.setActivationCode(actCode);
+        _emailSender.sendSimpleEmail(user.getEmail(),"Confirm booked appointment", "http://localhost:8084/api/appointment/activate-appointment/" +actCode);
+        System.out.println(user.getEmail());
+        _appointmentRepo.save(app);
+    }
+    @Override
+    public Appointment activate(String activation) throws Exception {
+        Optional<Appointment> a = _appointmentRepo.findByActivationCode(activation);
+        if(a.isPresent()){
+            Appointment ap = a.get();
+            ap.setState(AppointmentState.SCHEDULED);
+            _appointmentRepo.save(ap);
+            return ap;
+        }
+        return null;
     }
     @Override
     public Appointment getBooked(Long user_id) {
@@ -119,8 +130,8 @@ public class AppointmentServiceImpl implements AppointmentService {
         if(sa.getUsers().getId() != customer.getId()){
             return appointment;
         }
-        //provera da li je booked ili pending
-        if(appointment.getState() != AppointmentState.SCHEDULED && appointment.getState() != AppointmentState.FINISHED){
+        //provera da li je scheduled ili pending
+        if(appointment.getState() != AppointmentState.SCHEDULED && appointment.getState() != AppointmentState.PENDING){
             return appointment;
         }
         //namesti polja

@@ -44,6 +44,9 @@ public class Appointment {
     @Column(name = "state", nullable = false)
     private AppointmentState state;
 
+    @JsonIgnore
+    private String activationCode;
+
     // Centar u kom postoji termin
     @ManyToOne(fetch = FetchType.EAGER)
     //@JoinColumn(name="center_id", nullable = false)

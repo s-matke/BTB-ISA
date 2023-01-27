@@ -229,7 +229,7 @@ public class AppointmentController {
         } else {
             // continue
         }
-        appointmentToUpdate.setState(AppointmentState.SCHEDULED);
+        appointmentToUpdate.setState(AppointmentState.PENDING);
 
         Appointment updatedAppointment = null;
 
@@ -255,7 +255,16 @@ public class AppointmentController {
 
         return new ResponseEntity<Appointment>(updatedAppointment, HttpStatus.OK);
     }
-
+    @GetMapping("/activate-appointment/{activation}")//eb31de01-86b4-48c4-9ff7-b9dbff8611a8
+    public ResponseEntity<Appointment> activateUser(@PathVariable("activation") String activation)throws Exception {
+        Appointment retVal;
+        try {
+            retVal = _appointmentService.activate(activation);
+            return new ResponseEntity<>(retVal, HttpStatus.OK);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
     @PutMapping(value = "/bookNE", produces = MediaType.APPLICATION_JSON_VALUE) // query instead
     public Boolean BookAppointment(BookAppointmentDTO dto) throws Exception {
         System.out.println("Hello, World!");

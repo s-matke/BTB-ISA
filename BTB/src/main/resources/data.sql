@@ -20,7 +20,7 @@ VALUES (nextval('global_id_sequence'), '32112341123', 'Worker', 'Workeric', 'wor
 -- REGISTERED USERS
 -- "$2a$10$Io18FqjIJDYLfM.MLWvo5uCfdb0QgQWV/B.OoF0II9xGQV8AzV/m6" = '123',
 INSERT INTO public.users (id, jmbg, first_name, last_name, email, password, status, address, city, country, gender, job, profession, penalty, phone, role, activated, activation_code)
-VALUES (nextval('global_id_sequence'), '34141412321', 'User', 'Useric', 'user@gmail.com', '$2a$10$Io18FqjIJDYLfM.MLWvo5uCfdb0QgQWV/B.OoF0II9xGQV8AzV/m6', true, 'Pregrevica 146d', 'Belgrade', 'Serbia', 'male', 'Designer', 'Driving instructor', 0, '+381691055491', 2, true, 'activation');
+VALUES (nextval('global_id_sequence'), '34141412321', 'User', 'Useric', 'freeriotpoints6000@gmail.com', '$2a$10$Io18FqjIJDYLfM.MLWvo5uCfdb0QgQWV/B.OoF0II9xGQV8AzV/m6', true, 'Pregrevica 146d', 'Belgrade', 'Serbia', 'male', 'Designer', 'Driving instructor', 0, '+381691055491', 2, true, 'activation');
 
 INSERT INTO public.users (id, jmbg, first_name, last_name, email, password, status, address, city, country, gender, job, profession, penalty, phone, role, activated, activation_code)
 VALUES (nextval('global_id_sequence'), '41231231321', 'Nikola', 'Nikolic', 'nikola@gmail.com', '$2a$10$Io18FqjIJDYLfM.MLWvo5uCfdb0QgQWV/B.OoF0II9xGQV8AzV/m6', true, 'Mazuraniceva 10', 'Petrovaradin', 'Serbia', 'male', 'Mehanicar', 'Inzenjer', 1, '+381601049921', 2, true, 'activation');
@@ -66,30 +66,30 @@ INSERT INTO USERS_ROLES(user_id, roles_id) VALUES (9, 1);
 
 -- PREDEFINED APPOINTMENTS [AVAILABLE]
 -- AVAILABLE, SCHEDULED, FINISHED == 0, 1, 2
-INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state) VALUES ('2022-11-17', '09:00:00', 1, 1, 2, 0);
-INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state) VALUES ('2022-11-17', '11:00:00', 2, 1, 2, 0);
-INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state) VALUES ('2022-11-17', '14:00:00', 2, 1, 2, 0);
-INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state) VALUES ('2022-11-18', '10:00:00', 1, 1, 2, 0);
-INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state) VALUES ('2022-11-18', '12:00:00', 1, 1, 2, 0);
-INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state) VALUES ('2022-11-17', '17:00:00', 1, 2, 3, 0);
-INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state) VALUES ('2022-11-18', '10:00:00', 1, 2, 3, 0);
-INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state) VALUES ('2022-11-18', '12:00:00', 2, 2, 3, 0);
-INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state) VALUES ('2022-11-18', '17:00:00', 3, 2, 3, 0);
+INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state, activation_code) VALUES ('2022-11-17', '09:00:00', 1, 1, 2, 0, 'activation');
+INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state, activation_code) VALUES ('2022-11-17', '11:00:00', 2, 1, 2, 0, 'activation');
+INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state, activation_code) VALUES ('2022-11-17', '14:00:00', 2, 1, 2, 0, 'activation');
+INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state, activation_code) VALUES ('2022-11-18', '10:00:00', 1, 1, 2, 0, 'activation');
+INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state, activation_code) VALUES ('2022-11-18', '12:00:00', 1, 1, 2, 0, 'activation');
+INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state, activation_code) VALUES ('2022-11-17', '17:00:00', 1, 2, 3, 0, 'activation');
+INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state, activation_code) VALUES ('2022-11-18', '10:00:00', 1, 2, 3, 0, 'activation');
+INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state, activation_code) VALUES ('2022-11-18', '12:00:00', 2, 2, 3, 0, 'activation');
+INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state, activation_code) VALUES ('2022-11-18', '17:00:00', 3, 2, 3, 0, 'activation');
 
 
 -- PREDEFINED APPOINTMENTS [SCHEDULED]
-INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state) VALUES ('2022-11-17', '09:00:00', 1, 1, 2, 1);
-INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state) VALUES ('2022-11-17', '11:00:00', 2, 1, 2, 1);
-INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state) VALUES ('2022-11-17', '14:00:00', 2, 1, 2, 1);
-INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state) VALUES ('2022-11-18', '10:00:00', 1, 1, 2, 1);
-INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state) VALUES ('2022-11-18', '12:00:00', 1, 1, 2, 1);
+INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state, activation_code) VALUES ('2022-11-17', '09:00:00', 1, 1, 2, 1, 'activation');
+INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state, activation_code) VALUES ('2022-11-17', '11:00:00', 2, 1, 2, 1, 'activation');
+INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state, activation_code) VALUES ('2022-11-17', '14:00:00', 2, 1, 2, 1,'activation');
+INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state, activation_code) VALUES ('2022-11-18', '10:00:00', 1, 1, 2, 1,'activation');
+INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state, activation_code) VALUES ('2022-11-18', '12:00:00', 1, 1, 2, 1,'activation');
 
 -- SCHEDULED APPOINTMENTS
-INSERT INTO public.scheduled_appointment(users_id, appointment_id) VALUES (4, 10);
+INSERT INTO public.scheduled_appointment(users_id, appointment_id) VALUES (7, 10);
 INSERT INTO public.scheduled_appointment(users_id, appointment_id) VALUES (4, 11);
 INSERT INTO public.scheduled_appointment(users_id, appointment_id) VALUES (5, 12);
 INSERT INTO public.scheduled_appointment(users_id, appointment_id) VALUES (6, 13);
-INSERT INTO public.scheduled_appointment(users_id, appointment_id) VALUES (6, 14);
+INSERT INTO public.scheduled_appointment(users_id, appointment_id) VALUES (7, 14);
 INSERT INTO public.scheduled_appointment(users_id, appointment_id) VALUES (7, 6);
 
 -- BLOOD BANK

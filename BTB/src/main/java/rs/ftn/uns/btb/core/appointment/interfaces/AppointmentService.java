@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import rs.ftn.uns.btb.core.appointment.dtos.BookAppointmentDTO;
+import rs.ftn.uns.btb.core.user.User;
 
 public interface AppointmentService {
 
@@ -15,6 +16,7 @@ public interface AppointmentService {
     List<Appointment> findAll();
     List<Appointment> getAllAvailable();
     Appointment getBooked( Long user_id);
+    Appointment activate(String activation)throws Exception;
     void deleteSelection(Long[] idsOfAppointmentsToRemove);
 
     Appointment findOne(Long id);
